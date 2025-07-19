@@ -1,0 +1,85 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: healthai_postgres
+    environment:
+      POSTGRES_DB: healthai
+      POSTGRES_USER: healthai_user
+      POSTGRES_PASSWORD: healthai_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - healthai_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: healthai_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - healthai_network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: healthai_backend
+    environment:
+      - DATABASE_URL=postgresql://healthai_user:healthai_password@postgres:5432/healthai
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=your-secret-key-here
+      - DEBUG=true
+    volumes:
+      - ./backend:/app
+      - ./models:/app/models
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - healthai_network
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: healthai_frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - healthai_network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: healthai_nginx
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - healthai_network
+
+volumes:
+  postgres_data:
+
+networks:
+  healthai_network:
+    driver: bridge

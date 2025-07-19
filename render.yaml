@@ -1,0 +1,20 @@
+services:
+  # Backend API Service
+  - type: web
+    name: cancerguard-ai-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile.prod
+    dockerContext: ./backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false  # Must be set manually in Render dashboard for security
+      - key: REDIS_URL
+        value: "redis://localhost:6379"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: MODEL_PATH
+        value: "/app/models/cnn_rnn_model_1.h5"
