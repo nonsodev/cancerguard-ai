@@ -48,7 +48,7 @@ export default function Layout({ children }: LayoutProps) {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-50 transition-colors duration-200">
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -59,7 +59,7 @@ export default function Layout({ children }: LayoutProps) {
             className="fixed inset-0 z-50 lg:hidden"
           >
             <div 
-              className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75" 
+              className="fixed inset-0 bg-gray-600 dark:bg-slate-900 bg-opacity-75 dark:bg-opacity-90" 
               onClick={() => setSidebarOpen(false)} 
             />
             <motion.div
@@ -67,20 +67,20 @@ export default function Layout({ children }: LayoutProps) {
               animate={{ x: 0 }}
               exit={{ x: -300 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-72 sm:w-80 bg-white dark:bg-gray-800 shadow-xl"
+              className="fixed inset-y-0 left-0 w-72 sm:w-80 bg-white dark:bg-slate-900/95 dark:backdrop-blur-xl shadow-xl dark:shadow-2xl"
             >
-              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-slate-700/50">
                 <div className="flex items-center">
-                  <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 rounded-lg flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-sm">C</span>
                   </div>
-                  <h1 className="ml-3 text-xl font-bold text-primary-600 dark:text-primary-400">CancerGuard AI</h1>
+                  <h1 className="ml-3 text-xl font-bold text-gray-900 dark:text-slate-100">CancerGuard AI</h1>
                 </div>
                 <div className="flex items-center space-x-2">
                   <ThemeToggle size="sm" />
                   <button
                     onClick={() => setSidebarOpen(false)}
-                    className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
+                    className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
                   >
                     <XMarkIcon className="h-6 w-6" />
                   </button>
@@ -94,10 +94,10 @@ export default function Layout({ children }: LayoutProps) {
                       key={item.name}
                       to={item.href}
                       onClick={() => setSidebarOpen(false)}
-                      className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
+                      className={`flex items-center px-6 py-3 text-sm font-medium transition-all duration-200 ${
                         isActive
-                          ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-r-2 border-primary-600 dark:border-primary-400'
-                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
+                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-2 border-blue-600 dark:border-blue-400 dark:shadow-lg'
+                          : 'text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-slate-100'
                       }`}
                     >
                       <item.icon className="mr-3 h-5 w-5" />
@@ -108,19 +108,19 @@ export default function Layout({ children }: LayoutProps) {
               </nav>
 
               {/* Mobile user info and logout */}
-              <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+              <div className="border-t border-gray-200 dark:border-slate-700/50 p-4">
                 <div className="flex items-center mb-3">
-                  <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
-                    <UserIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+                  <div className="w-8 h-8 bg-gradient-to-br from-slate-300 to-slate-400 dark:from-slate-600 dark:to-slate-700 rounded-full flex items-center justify-center">
+                    <UserIcon className="h-5 w-5 text-gray-600 dark:text-slate-300" />
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{user?.full_name || user?.username}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{user?.full_name || user?.username}</p>
+                    <p className="text-xs text-gray-500 dark:text-slate-400">{user?.email}</p>
                   </div>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center w-full px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
+                  className="flex items-center w-full px-3 py-2 text-sm text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-700/50 rounded-md transition-colors"
                 >
                   <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
                   Sign out
@@ -132,13 +132,13 @@ export default function Layout({ children }: LayoutProps) {
       </AnimatePresence>
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-colors duration-200">
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col flex-grow bg-white dark:bg-slate-900/95 dark:backdrop-blur-xl border-r border-gray-200 dark:border-slate-700/50 transition-colors duration-200">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700/50">
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 rounded-lg flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">C</span>
               </div>
-              <h1 className="ml-3 text-xl font-bold text-gray-900 dark:text-gray-100">CancerGuard AI</h1>
+              <h1 className="ml-3 text-xl font-bold text-gray-900 dark:text-slate-100">CancerGuard AI</h1>
             </div>
             <ThemeToggle size="sm" />
           </div>
@@ -150,10 +150,10 @@ export default function Layout({ children }: LayoutProps) {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
+                  className={`flex items-center px-6 py-3 text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-r-2 border-primary-600 dark:border-primary-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-2 border-blue-600 dark:border-blue-400 dark:shadow-lg'
+                      : 'text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-slate-100'
                   }`}
                 >
                   <item.icon className="mr-3 h-5 w-5" />
@@ -164,19 +164,19 @@ export default function Layout({ children }: LayoutProps) {
           </nav>
 
           {/* User info and logout */}
-          <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+          <div className="border-t border-gray-200 dark:border-slate-700/50 p-4">
             <div className="flex items-center mb-3">
-              <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
-                <UserIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+              <div className="w-8 h-8 bg-gradient-to-br from-slate-300 to-slate-400 dark:from-slate-600 dark:to-slate-700 rounded-full flex items-center justify-center">
+                <UserIcon className="h-5 w-5 text-gray-600 dark:text-slate-300" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{user?.full_name || user?.username}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-slate-100">{user?.full_name || user?.username}</p>
+                <p className="text-xs text-gray-500 dark:text-slate-400">{user?.email}</p>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center w-full px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
+              className="flex items-center w-full px-3 py-2 text-sm text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-700/50 rounded-md transition-colors"
             >
               <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
               Sign out
@@ -188,15 +188,15 @@ export default function Layout({ children }: LayoutProps) {
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top bar for mobile */}
-        <div className="sticky top-0 z-40 lg:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 transition-colors duration-200">
+        <div className="sticky top-0 z-40 lg:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-gray-200 dark:border-slate-700/50 px-4 py-3 transition-colors duration-200">
           <div className="flex items-center justify-between">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
+              className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:text-slate-300 dark:hover:text-slate-100 transition-colors"
             >
               <Bars3Icon className="h-6 w-6" />
             </button>
-            <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">CancerGuard AI</h1>
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-slate-100">CancerGuard AI</h1>
             <ThemeToggle size="sm" />
           </div>
         </div>
