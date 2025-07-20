@@ -1,56 +1,70 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline'
-import { useTheme } from '../contexts/ThemeContext'
 
 interface ThemeToggleProps {
-  className?: string
   size?: 'sm' | 'md' | 'lg'
 }
 
-export default function ThemeToggle({ className = '', size = 'md' }: ThemeToggleProps) {
-  const { theme, toggleTheme } = useTheme()
+export default function ThemeToggle({ size = 'md' }: ThemeToggleProps) {
+  const [isDark, setIsDark] = useState(false)
 
-  const sizeClasses = {
-    sm: 'w-8 h-8',
-    md: 'w-10 h-10',
-    lg: 'w-12 h-12'
+  useEffect(() => {
+    // Check if user has a theme preference
+    const savedTheme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      setIsDark(true)
+      document.documentElement.classList.add('dark')
+    } else {
+      setIsDark(false)
+      document.documentElement.classList.remove('dark')
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = !isDark
+    setIsDark(newTheme)
+    
+    if (newTheme) {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
+    }
   }
 
-  const iconSizes = {
-    sm: 'h-4 w-4',
-    md: 'h-5 w-5',
-    lg: 'h-6 w-6'
+  const sizeClasses = {
+    sm: 'p-1.5 w-5 h-5',
+    md: 'p-2 w-6 h-6', 
+    lg: 'p-3 w-8 h-8'
+  }
+
+  const iconSizeClasses = {
+    sm: 'w-5 h-5',
+    md: 'w-6 h-6',
+    lg: 'w-8 h-8'
   }
 
   return (
-    <motion.button
+    <button
       onClick={toggleTheme}
-      className={`
-        ${sizeClasses[size]} 
-        rounded-lg 
-        bg-gray-200 dark:bg-gray-700 
-        hover:bg-gray-300 dark:hover:bg-gray-600
-        flex items-center justify-center
-        transition-colors duration-200
-        focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
-        dark:focus:ring-offset-gray-800
-        ${className}
-      `}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      className="relative rounded-xl bg-white/80 dark:bg-dark-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-dark-600/50 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 hover:scale-110 hover:shadow-lg p-2"
+      aria-label="Toggle theme"
     >
-      <motion.div
-        initial={false}
-        animate={{ rotate: theme === 'dark' ? 180 : 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-      >
-        {theme === 'light' ? (
-          <MoonIcon className={`${iconSizes[size]} text-gray-600 dark:text-gray-300`} />
-        ) : (
-          <SunIcon className={`${iconSizes[size]} text-yellow-500`} />
-        )}
-      </motion.div>
-    </motion.button>
+      <div className={`relative ${iconSizeClasses[size]}`}>
+        <SunIcon 
+          className={`absolute inset-0 ${iconSizeClasses[size]} transition-all duration-300 ${
+            isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
+          }`}
+        />
+        <MoonIcon 
+          className={`absolute inset-0 ${iconSizeClasses[size]} transition-all duration-300 ${
+            isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+          }`}
+        />
+      </div>
+    </button>
   )
 }
