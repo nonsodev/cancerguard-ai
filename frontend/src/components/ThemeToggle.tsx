@@ -35,12 +35,6 @@ export default function ThemeToggle({ size = 'md' }: ThemeToggleProps) {
     }
   }
 
-  const sizeClasses = {
-    sm: 'p-1.5 w-5 h-5',
-    md: 'p-2 w-6 h-6', 
-    lg: 'p-3 w-8 h-8'
-  }
-
   const iconSizeClasses = {
     sm: 'w-5 h-5',
     md: 'w-6 h-6',
