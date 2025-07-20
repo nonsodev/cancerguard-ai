@@ -100,19 +100,20 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="card primary-gradient text-white">
-          <div className="flex items-center justify-between">
+        <div className="relative overflow-hidden bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-500 rounded-3xl shadow-2xl p-8 text-white">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 via-blue-700/20 to-purple-700/20 backdrop-blur-sm"></div>
+          <div className="relative flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold mb-2">
+              <h1 className="text-3xl font-bold mb-3 bg-gradient-to-r from-white to-cyan-100 bg-clip-text text-transparent">
                 Welcome back, {user?.full_name || user?.username}!
               </h1>
-              <p className="text-primary-100">
+              <p className="text-cyan-100 text-lg">
                 Ready to analyze medical images with AI-powered precision?
               </p>
             </div>
             <Link
               to="/predict"
-              className="inline-flex items-center px-6 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
+              className="btn-secondary !bg-white/20 !text-white hover:!bg-white/30 backdrop-blur-sm border-white/30"
             >
               <CameraIcon className="h-5 w-5 mr-2" />
               New Analysis
@@ -128,7 +129,7 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Platform Overview</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-6">Platform Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <motion.div
@@ -136,15 +137,15 @@ export default function DashboardPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="card"
+              className="card-stats"
             >
               <div className="flex items-center">
-                <div className={`p-3 rounded-lg ${stat.bg}`}>
-                  <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                <div className={`p-4 rounded-2xl ${stat.bg} dark:bg-slate-700/50 shadow-lg`}>
+                  <stat.icon className={`h-8 w-8 ${stat.color} dark:text-cyan-400`} />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">{stat.name}</p>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                <div className="ml-6">
+                  <p className="text-sm font-medium text-gray-600 dark:text-slate-400">{stat.name}</p>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-slate-100">{stat.value}</p>
                 </div>
               </div>
             </motion.div>
@@ -158,7 +159,7 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Statistics</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-6">Your Statistics</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {userStatsData.map((stat, index) => (
             <motion.div
@@ -166,11 +167,11 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="card text-center"
+              className="card-stats text-center"
             >
-              <div className="text-3xl font-bold text-primary-600 mb-2">{stat.value}</div>
-              <div className="text-lg font-medium text-gray-900 mb-1">{stat.name}</div>
-              <div className="text-sm text-gray-600">{stat.description}</div>
+              <div className="stat-number mb-3">{stat.value}</div>
+              <div className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-2">{stat.name}</div>
+              <div className="text-sm text-gray-600 dark:text-slate-400">{stat.description}</div>
             </motion.div>
           ))}
         </div>
@@ -182,40 +183,40 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Quick Actions</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100 mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link to="/predict" className="card hover:shadow-md transition-shadow group">
+          <Link to="/predict" className="card-feature group">
             <div className="flex items-center">
-              <div className="p-3 rounded-lg bg-primary-100 group-hover:bg-primary-200 transition-colors">
-                <CameraIcon className="h-6 w-6 text-primary-600" />
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 group-hover:from-cyan-600 group-hover:to-blue-700 transition-all duration-300 shadow-lg">
+                <CameraIcon className="h-8 w-8 text-white" />
               </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">New Prediction</h3>
-                <p className="text-gray-600">Upload and analyze medical images</p>
+              <div className="ml-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">New Prediction</h3>
+                <p className="text-gray-600 dark:text-slate-400">Upload and analyze medical images</p>
               </div>
             </div>
           </Link>
 
-          <Link to="/history" className="card hover:shadow-md transition-shadow group">
+          <Link to="/history" className="card-feature group">
             <div className="flex items-center">
-              <div className="p-3 rounded-lg bg-gray-100 group-hover:bg-gray-200 transition-colors">
-                <ClockIcon className="h-6 w-6 text-gray-600" />
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 group-hover:from-purple-600 group-hover:to-pink-700 transition-all duration-300 shadow-lg">
+                <ClockIcon className="h-8 w-8 text-white" />
               </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">View History</h3>
-                <p className="text-gray-600">Review past predictions and results</p>
+              <div className="ml-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">View History</h3>
+                <p className="text-gray-600 dark:text-slate-400">Review past predictions and results</p>
               </div>
             </div>
           </Link>
 
-          <Link to="/profile" className="card hover:shadow-md transition-shadow group">
+          <Link to="/profile" className="card-feature group">
             <div className="flex items-center">
-              <div className="p-3 rounded-lg bg-health-100 group-hover:bg-health-200 transition-colors">
-                <UserGroupIcon className="h-6 w-6 text-health-600" />
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 group-hover:from-emerald-600 group-hover:to-teal-700 transition-all duration-300 shadow-lg">
+                <UserGroupIcon className="h-8 w-8 text-white" />
               </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">Profile Settings</h3>
-                <p className="text-gray-600">Manage your account preferences</p>
+              <div className="ml-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100">Profile Settings</h3>
+                <p className="text-gray-600 dark:text-slate-400">Manage your account preferences</p>
               </div>
             </div>
           </Link>
@@ -230,27 +231,27 @@ export default function DashboardPage() {
       >
         <div className="card">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Platform Activity</h2>
-            <span className="text-sm text-gray-500">Last 7 days</span>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-slate-100">Platform Activity</h2>
+            <span className="text-sm text-gray-500 dark:text-slate-400">Last 7 days</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-2xl font-bold text-primary-600 mb-1">
+              <div className="stat-number mb-2">
                 {dashboardData?.recent_predictions || 0}
               </div>
-              <div className="text-sm text-gray-600">Recent Predictions</div>
+              <div className="text-sm text-gray-600 dark:text-slate-400">Recent Predictions</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-health-600 mb-1">
+              <div className="stat-number-health mb-2">
                 {dashboardData?.total_users || 0}
               </div>
-              <div className="text-sm text-gray-600">Active Users</div>
+              <div className="text-sm text-gray-600 dark:text-slate-400">Active Users</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-600 mb-1">
+              <div className="stat-number mb-2">
                 {dashboardData?.average_processing_time?.toFixed(2) || 0}s
               </div>
-              <div className="text-sm text-gray-600">Avg Response Time</div>
+              <div className="text-sm text-gray-600 dark:text-slate-400">Avg Response Time</div>
             </div>
           </div>
         </div>
