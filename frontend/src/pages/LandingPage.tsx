@@ -7,6 +7,7 @@ import {
   UserGroupIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/outline'
+import ThemeToggle from '../components/ThemeToggle'
 
 const features = [
   {
@@ -33,27 +34,28 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       {/* Navigation */}
-      <nav className="bg-white shadow-sm">
+      <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+          <div className="flex justify-between items-center py-4 sm:py-6">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">C</span>
               </div>
-              <span className="ml-3 text-xl font-bold text-gray-900">CancerGuard AI</span>
+              <span className="ml-3 text-lg sm:text-xl font-bold text-gray-900 dark:text-gray-100">CancerGuard AI</span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <ThemeToggle size="sm" />
               <Link
                 to="/login"
-                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                className="hidden sm:block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
               >
                 Sign in
               </Link>
               <Link
                 to="/register"
-                className="btn-primary"
+                className="btn-primary text-sm sm:text-base px-4 sm:px-6 py-2"
               >
                 Get Started
               </Link>
@@ -70,10 +72,10 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6"
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight"
             >
               AI-Powered
-              <span className="text-primary-600"> Breast Cancer</span>
+              <span className="text-primary-600 dark:text-primary-400"> Breast Cancer</span>
               <br />
               Detection Platform
             </motion.h1>
@@ -81,7 +83,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
+              className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto px-4 sm:px-0"
             >
               Advanced machine learning technology for early detection and analysis of breast cancer.
               Empowering healthcare professionals with accurate, fast, and reliable AI diagnostics.
@@ -117,13 +119,13 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-16 sm:py-24 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               Why Choose CancerGuard AI?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4 sm:px-0">
               Our platform combines cutting-edge AI technology with healthcare expertise
               to provide the most accurate and reliable breast cancer detection.
             </p>

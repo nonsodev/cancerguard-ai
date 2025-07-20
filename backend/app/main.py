@@ -37,7 +37,8 @@ app.add_middleware(
         "http://localhost:3000", 
         "http://127.0.0.1:3000",
         "https://*.vercel.app",
-        "https://cancerguard-ai-frontend.vercel.app"
+        "https://cancerguard-ai-frontend.vercel.app",
+        "https://ac7ab8534ec8.ngrok-free.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -66,4 +67,6 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Get port from Render environment variable, fallback to 8000
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

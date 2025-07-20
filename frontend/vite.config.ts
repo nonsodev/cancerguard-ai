@@ -9,6 +9,12 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      '.ngrok-free.app',
+      'ac7ab8534ec8.ngrok-free.app'
+    ],
   },
   resolve: {
     alias: {

@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from './store/authStore'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Layout from './components/Layout'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -13,7 +14,8 @@ function App() {
   const { isAuthenticated } = useAuthStore()
 
   return (
-    <Routes>
+    <ThemeProvider>
+      <Routes>
       {/* Public routes */}
       <Route path="/" element={<LandingPage />} />
       <Route 
@@ -78,6 +80,7 @@ function App() {
       {/* Catch all route */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
+    </ThemeProvider>
   )
 }
 

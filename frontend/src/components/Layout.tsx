@@ -1,6 +1,6 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   HomeIcon,
   CameraIcon,
@@ -11,6 +11,7 @@ import {
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline'
 import { useAuthStore } from '../store/authStore'
+import ThemeToggle from './ThemeToggle'
 
 interface LayoutProps {
   children: ReactNode
@@ -34,59 +35,112 @@ export default function Layout({ children }: LayoutProps) {
     navigate('/login')
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Mobile sidebar */}
-      <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
-        <motion.div
-          initial={{ x: -300 }}
-          animate={{ x: 0 }}
-          exit={{ x: -300 }}
-          className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl"
-        >
-          <div className="flex items-center justify-between p-4 border-b">
-            <h1 className="text-xl font-bold text-primary-600">CancerGuard AI</h1>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-600"
-            >
-              <XMarkIcon className="h-6 w-6" />
-            </button>
-          </div>
-          <nav className="mt-8">
-            {navigation.map((item) => {
-              const isActive = location.pathname === item.href
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-primary-50 text-primary-600 border-r-2 border-primary-600'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  <item.icon className="mr-3 h-5 w-5" />
-                  {item.name}
-                </Link>
-              )
-            })}
-          </nav>
-        </motion.div>
-      </div>
+  // Close sidebar when clicking outside on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(false)
+      }
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+      {/* Mobile sidebar overlay */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 lg:hidden"
+          >
+            <div 
+              className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75" 
+              onClick={() => setSidebarOpen(false)} 
+            />
+            <motion.div
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+              exit={{ x: -300 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 left-0 w-72 sm:w-80 bg-white dark:bg-gray-800 shadow-xl"
+            >
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">C</span>
+                  </div>
+                  <h1 className="ml-3 text-xl font-bold text-primary-600 dark:text-primary-400">CancerGuard AI</h1>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <ThemeToggle size="sm" />
+                  <button
+                    onClick={() => setSidebarOpen(false)}
+                    className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
+                  >
+                    <XMarkIcon className="h-6 w-6" />
+                  </button>
+                </div>
+              </div>
+              <nav className="mt-8 flex-1">
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.href
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      onClick={() => setSidebarOpen(false)}
+                      className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
+                        isActive
+                          ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-r-2 border-primary-600 dark:border-primary-400'
+                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
+                      }`}
+                    >
+                      <item.icon className="mr-3 h-5 w-5" />
+                      {item.name}
+                    </Link>
+                  )
+                })}
+              </nav>
+
+              {/* Mobile user info and logout */}
+              <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+                <div className="flex items-center mb-3">
+                  <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                    <UserIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{user?.full_name || user?.username}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center w-full px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
+                >
+                  <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
+                  Sign out
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-grow bg-white border-r border-gray-200">
-          <div className="flex items-center px-6 py-4 border-b">
+        <div className="flex flex-col flex-grow bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-colors duration-200">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">C</span>
               </div>
-              <h1 className="ml-3 text-xl font-bold text-gray-900">CancerGuard AI</h1>
+              <h1 className="ml-3 text-xl font-bold text-gray-900 dark:text-gray-100">CancerGuard AI</h1>
             </div>
+            <ThemeToggle size="sm" />
           </div>
           
           <nav className="mt-8 flex-1">
@@ -98,8 +152,8 @@ export default function Layout({ children }: LayoutProps) {
                   to={item.href}
                   className={`flex items-center px-6 py-3 text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-primary-50 text-primary-600 border-r-2 border-primary-600'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-r-2 border-primary-600 dark:border-primary-400'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100'
                   }`}
                 >
                   <item.icon className="mr-3 h-5 w-5" />
@@ -110,19 +164,19 @@ export default function Layout({ children }: LayoutProps) {
           </nav>
 
           {/* User info and logout */}
-          <div className="border-t border-gray-200 p-4">
+          <div className="border-t border-gray-200 dark:border-gray-700 p-4">
             <div className="flex items-center mb-3">
-              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                <UserIcon className="h-5 w-5 text-gray-600" />
+              <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                <UserIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">{user?.full_name || user?.username}</p>
-                <p className="text-xs text-gray-500">{user?.email}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{user?.full_name || user?.username}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center w-full px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+              className="flex items-center w-full px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors"
             >
               <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
               Sign out
@@ -134,16 +188,16 @@ export default function Layout({ children }: LayoutProps) {
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top bar for mobile */}
-        <div className="sticky top-0 z-40 lg:hidden bg-white border-b border-gray-200 px-4 py-3">
+        <div className="sticky top-0 z-40 lg:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 transition-colors duration-200">
           <div className="flex items-center justify-between">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-md text-gray-400 hover:text-gray-600"
+              className="p-2 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 transition-colors"
             >
               <Bars3Icon className="h-6 w-6" />
             </button>
-            <h1 className="text-lg font-semibold text-gray-900">CancerGuard AI</h1>
-            <div className="w-10" /> {/* Spacer */}
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">CancerGuard AI</h1>
+            <ThemeToggle size="sm" />
           </div>
         </div>
 

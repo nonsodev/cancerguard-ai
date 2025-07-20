@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     
     # Database
-    DATABASE_URL: str = "postgresql://healthai_user:healthai_password@localhost:5432/healthai"
+    DATABASE_URL: str = "sqlite:///./healthai.db"
     
     # Redis
     REDIS_URL: str = "redis://localhost:6379"
