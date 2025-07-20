@@ -75,7 +75,7 @@
   
   /* Stunning Card Styles */
   .card {
-    @apply relative bg-white/95 dark:bg-gradient-to-br dark:from-slate-800/80 dark:via-slate-900/90 dark:to-slate-800/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/20 dark:border-slate-600/20 p-8 transition-all duration-500 hover:shadow-3xl dark:hover:shadow-cyan-500/10 hover:scale-[1.02] group;
+    @apply relative bg-white/95 dark:bg-gradient-to-br dark:from-slate-800/80 dark:via-slate-900/90 dark:to-slate-800/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/20 dark:border-slate-600/20 p-8 transition-all duration-500 hover:shadow-3xl dark:hover:shadow-cyan-500/10 hover:scale-[1.02];
   }
   
   .card::before {
@@ -96,7 +96,7 @@
   }
   
   .card-stats {
-    @apply relative bg-white/95 dark:bg-gradient-to-br dark:from-slate-800/60 dark:via-slate-900/80 dark:to-slate-800/60 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/20 dark:border-slate-600/10 p-8 transition-all duration-500 hover:shadow-3xl dark:hover:shadow-blue-500/20 hover:scale-[1.03] group overflow-hidden;
+    @apply relative bg-white/95 dark:bg-gradient-to-br dark:from-slate-800/60 dark:via-slate-900/80 dark:to-slate-800/60 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/20 dark:border-slate-600/10 p-8 transition-all duration-500 hover:shadow-3xl dark:hover:shadow-blue-500/20 hover:scale-[1.03] overflow-hidden;
   }
   
   .card-stats::after {
@@ -122,7 +122,7 @@
   }
   
   .card-feature {
-    @apply relative bg-white/90 dark:bg-gradient-to-br dark:from-slate-800/40 dark:to-slate-900/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/30 dark:border-slate-600/20 p-6 transition-all duration-300 hover:shadow-2xl dark:hover:bg-gradient-to-br dark:hover:from-slate-700/50 dark:hover:to-slate-800/70 hover:scale-105 group;
+    @apply relative bg-white/90 dark:bg-gradient-to-br dark:from-slate-800/40 dark:to-slate-900/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/30 dark:border-slate-600/20 p-6 transition-all duration-300 hover:shadow-2xl dark:hover:bg-gradient-to-br dark:hover:from-slate-700/50 dark:hover:to-slate-800/70 hover:scale-105;
   }
   
   /* Stunning Input Field Enhancements */
