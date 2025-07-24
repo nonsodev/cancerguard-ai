@@ -13,11 +13,11 @@ A modern, AI-powered web application for breast cancer detection using advanced 
 ## 📸 Screenshots
 
 ### Homepage
-![CancerGuard AI Homepage](homepage.png)
+![CancerGuard AI Homepage](interface.png)
 *Clean, professional homepage with intuitive navigation and clear call-to-action*
 
 ### User Interface
-![CancerGuard AI Interface](interface.png)
+![CancerGuard AI Interface](homepage.png)
 *Modern, healthcare-focused interface designed for medical professionals*
 
 ### Prediction Results
