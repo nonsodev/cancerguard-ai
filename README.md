@@ -1,16 +1,22 @@
-# CancerGuard AI - Breast Cancer Detection Platform
+# 🩺 CancerGuard AI - Breast Cancer Detection Platform
 
-A modern, comprehensive web application for breast cancer detection using AI/ML models with a beautiful healthcare-focused UI.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-cancerguard--ai.vercel.app-blue?style=for-the-badge&logo=vercel)](https://cancerguard-ai.vercel.app)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15.0-FF6F00?style=for-the-badge&logo=tensorflow)](https://tensorflow.org)
 
-![CancerGuard AI Dashboard](https://via.placeholder.com/800x400/0ea5e9/ffffff?text=CancerGuard+AI+Dashboard)
+> **🚀 Live Application:** [cancerguard-ai.vercel.app](https://cancerguard-ai.vercel.app)
+
+A modern, AI-powered web application for breast cancer detection using advanced machine learning models with a beautiful, healthcare-focused user interface designed for medical professionals.
 
 ## ✨ Features
 
 - 🏥 **Modern Healthcare UI** - Beautiful, intuitive interface designed for medical professionals
 - 🤖 **AI-Powered Detection** - Advanced CNN-RNN hybrid model for accurate breast cancer detection
-- � **Reael-time Results** - Instant predictions with confidence scores and detailed analysis
-- �  **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
-- � **Secmure Processing** - HIPAA-compliant file handling and data encryption
+- ⚡ **Real-time Results** - Instant predictions with confidence scores and detailed analysis
+- 📱 **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
+- 🔒 **Secure Processing** - HIPAA-compliant file handling and data encryption
 - 📈 **Analytics Dashboard** - Comprehensive statistics and performance metrics
 - 👥 **User Management** - Multi-user support with role-based access control
 - 🎨 **Accessible Interface** - WCAG 2.1 compliant design for all users
@@ -20,24 +26,29 @@ A modern, comprehensive web application for breast cancer detection using AI/ML 
 ## 🚀 Tech Stack
 
 ### Backend
-- **FastAPI** - Modern, fast Python web framework with automatic API documentation
-- **TensorFlow/Keras** - Deep learning framework for CNN-RNN model inference
-- **SQLAlchemy** - Powerful SQL toolkit and ORM
-- **PostgreSQL** - Robust relational database
-- **Redis** - In-memory caching for improved performance
-- **Pydantic** - Data validation using Python type annotations
-- **Pillow** - Advanced image processing capabilities
-- **JWT** - Secure authentication and authorization
+- **FastAPI 0.104.1** - Modern, fast Python web framework with automatic API documentation
+- **TensorFlow 2.15.0** - Deep learning framework for CNN-RNN model inference
+- **SQLAlchemy 2.0.23** - Powerful SQL toolkit and ORM
+- **Redis 5.0.1** - In-memory caching for improved performance
+- **Pydantic 2.5.0** - Data validation using Python type annotations
+- **Pillow 10.1.0** - Advanced image processing capabilities
+- **Python-JOSE** - JWT token handling for secure authentication
+- **Uvicorn** - Lightning-fast ASGI server
+- **Alembic** - Database migration tool
 
 ### Frontend
-- **React 18** - Modern UI library with concurrent features
-- **TypeScript** - Type-safe JavaScript for better development experience
-- **Tailwind CSS** - Utility-first CSS framework for rapid styling
-- **Framer Motion** - Production-ready motion library for React
-- **React Query** - Powerful data synchronization for React
-- **Zustand** - Lightweight state management solution
-- **React Hook Form** - Performant forms with easy validation
-- **React Dropzone** - Simple drag-and-drop file uploads
+- **React 18.2.0** - Modern UI library with concurrent features
+- **TypeScript 5.3.2** - Type-safe JavaScript for better development experience
+- **Vite 5.0.0** - Next-generation frontend build tool
+- **Tailwind CSS 3.3.6** - Utility-first CSS framework for rapid styling
+- **Framer Motion 10.16.5** - Production-ready motion library for React
+- **TanStack Query 5.8.4** - Powerful data synchronization for React
+- **Zustand 4.4.7** - Lightweight state management solution
+- **React Hook Form 7.48.2** - Performant forms with easy validation
+- **React Dropzone 14.2.3** - Simple drag-and-drop file uploads
+- **Headless UI 1.7.17** - Unstyled, accessible UI components
+- **Heroicons 2.0.18** - Beautiful hand-crafted SVG icons
+- **Recharts 2.8.0** - Composable charting library for React
 
 ### Infrastructure
 - **Docker** - Containerization for consistent deployments
@@ -95,8 +106,8 @@ cancerguard-ai/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/healthai.git
-   cd healthai
+   git clone https://github.com/nonsodev/cancerguard-ai.git
+   cd cancerguard-ai
    ```
 
 2. **Run the setup script**
@@ -288,9 +299,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 - **Documentation:** [docs/](docs/)
-- **Issues:** [GitHub Issues](https://github.com/yourusername/healthai/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/healthai/discussions)
-- **Email:** support@healthai.com
+- **Issues:** [GitHub Issues](https://github.com/nonsodev/cancerguard-ai/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/nonsodev/cancerguard-ai/discussions)
+- **Live Demo:** [cancerguard-ai.vercel.app](https://cancerguard-ai.vercel.app)
 
 ## 🙏 Acknowledgments
 
